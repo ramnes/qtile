@@ -1,16 +1,19 @@
-=====
-Qtile
-=====
+.. raw:: html
 
-|travis| |coveralls| |rtd|
-
-A full-featured, pure-Python tiling window manager
-==================================================
-
-:Website: http://www.qtile.org
-:Source: https://github.com/qtile/qtile
-:Documentation: https://qtile.readthedocs.io/en/latest/
-:License: MIT License
+   <div align="center">
+         <a href="http://www.qtile.org"><img width="400" src="logo.png" alt="Logo"></a>
+         <p>
+             <b>A full-featured, hackable tiling window manager written and configured in Python</b>
+         </p>
+         <p>
+             <a href="http://www.qtile.org"><img src="https://img.shields.io/badge/website-qtile.org-blue.svg" alt="Website"></a>
+             <a href="https://pypi.org/project/qtile/"><img src="https://img.shields.io/pypi/v/qtile.svg" alt="PyPI"></a>
+             <a href="https://travis-ci.org/qtile/qtile"><img src="https://img.shields.io/travis/qtile/qtile.svg" alt="Travis"></a>
+             <a href="http://docs.qtile.org/en/latest/"><img src="https://img.shields.io/readthedocs/qtile.svg" alt="Read the Docs"></a>
+             <a href="https://coveralls.io/github/qtile/qtile?branch=master"><img src="https://img.shields.io/coveralls/github/qtile/qtile/master.svg" alt="Coveralls"></a>
+             <a href="https://github.com/qtile/qtile/blob/master/LICENSE"><img src="https://img.shields.io/github/license/qtile/qtile.svg" alt="License"></a>
+         </p>
+   </div>
 
 Features
 ========
@@ -24,13 +27,6 @@ Features
   manipulate windows, update status bar widgets and more.
 * Qtile's remote scriptability makes it one of the most thoroughly
   unit-tested window managers around.
-
-Current Release
-===============
-
-The current stable version of qtile is 0.13.0, released 2018-12-23. See the
-`documentation <http://docs.qtile.org/en/latest/manual/install/index.html>`_
-for installation instructions.
 
 Community
 =========
@@ -51,13 +47,3 @@ and `guidelines`_ for contributing in the documentation.
 .. _`issue tracker`: https://github.com/qtile/qtile/issues
 .. _`tips & tricks`: http://docs.qtile.org/en/latest/manual/hacking.html
 .. _`guidelines`: http://docs.qtile.org/en/latest/manual/contributing.html
-
-.. |travis| image:: https://travis-ci.org/qtile/qtile.svg?branch=master
-    :alt: Build Status
-    :target: https://travis-ci.org/qtile/qtile
-.. |coveralls| image:: https://coveralls.io/repos/github/qtile/qtile/badge.svg?branch=master
-    :alt: Build Coverage
-    :target: https://coveralls.io/github/qtile/qtile?branch=master
-.. |rtd| image:: https://readthedocs.org/projects/qtile/badge/?version=latest
-    :alt: Documentation Status
-    :target: http://docs.qtile.org/en/latest/?badge=latest
