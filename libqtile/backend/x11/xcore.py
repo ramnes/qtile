@@ -439,7 +439,7 @@ class XCore(base.Core):
             yield self._numlock_mask
             yield self._numlock_mask | xcbq.ModMasks["lock"]
 
-    def handle_SelectionNotify(self, event) -> None:  # noqa: N802
+    def handle_SelectionNotify(self, event) -> None:
         if not getattr(event, "owner", None):
             return
 
@@ -451,7 +451,7 @@ class XCore(base.Core):
 
         hook.fire("selection_notify", name, self._selection[name])
 
-    def handle_PropertyNotify(self, event) -> None:  # noqa: N802
+    def handle_PropertyNotify(self, event) -> None:
         name = self.conn.atoms.get_name(event.atom)
         # it's the selection property
         if name in ("PRIMARY", "CLIPBOARD"):
@@ -465,12 +465,12 @@ class XCore(base.Core):
             self._selection[name]["selection"] = value
             hook.fire("selection_change", name, self._selection[name])
 
-    def handle_EnterNotify(self, event) -> Optional[bool]:  # noqa: N802
+    def handle_EnterNotify(self, event) -> Optional[bool]:
         assert self.qtile is not None
 
         return self.qtile.enter_event(event)
 
-    def handle_ClientMessage(self, event) -> None:  # noqa: N802
+    def handle_ClientMessage(self, event) -> None:
         assert self.qtile is not None
 
         atoms = self.conn.atoms
@@ -486,13 +486,13 @@ class XCore(base.Core):
             except IndexError:
                 logger.info("Invalid Desktop Index: %s" % index)
 
-    def handle_KeyPress(self, event) -> None:  # noqa: N802
+    def handle_KeyPress(self, event) -> None:
         assert self.qtile is not None
 
         keysym = self.conn.code_to_syms[event.detail][0]
         self.qtile.process_key_event(keysym, event.state & self._valid_mask)
 
-    def handle_ButtonPress(self, event) -> None:  # noqa: N802
+    def handle_ButtonPress(self, event) -> None:
         assert self.qtile is not None
 
         self.mouse_position = (event.event_x, event.event_y)
@@ -504,25 +504,25 @@ class XCore(base.Core):
             button_code, state, event.event_x, event.event_y, event
         )
 
-    def handle_ButtonRelease(self, event) -> None:  # noqa: N802
+    def handle_ButtonRelease(self, event) -> None:
         assert self.qtile is not None
 
         button_code = event.detail
         self.qtile.process_button_release(button_code)
 
-    def handle_MotionNotify(self, event) -> None:  # noqa: N802
+    def handle_MotionNotify(self, event) -> None:
         assert self.qtile is not None
 
         self.qtile.process_button_motion(event.event_x, event.event_y)
 
-    def handle_ConfigureNotify(self, event) -> None:  # noqa: N802
+    def handle_ConfigureNotify(self, event) -> None:
         """Handle xrandr events"""
         assert self.qtile is not None
 
         if event.window == self._root.wid:
             self.qtile.process_configure(event.width, event.height)
 
-    def handle_ConfigureRequest(self, event):  # noqa: N802
+    def handle_ConfigureRequest(self, event):
         # It's not managed, or not mapped, so we just obey it.
         cw = xcffib.xproto.ConfigWindow
         args = {}
@@ -539,31 +539,31 @@ class XCore(base.Core):
         w = xcbq.Window(self.conn, event.window)
         w.configure(**args)
 
-    def handle_MappingNotify(self, event):  # noqa: N802
+    def handle_MappingNotify(self, event):
         assert self.qtile is not None
 
         self.conn.refresh_keymap()
         if event.request == xcffib.xproto.Mapping.Keyboard:
             self.qtile.grab_keys()
 
-    def handle_MapRequest(self, event) -> None:  # noqa: N802
+    def handle_MapRequest(self, event) -> None:
         assert self.qtile is not None
 
         window = xcbq.Window(self.conn, event.window)
         self.qtile.map_window(window)
 
-    def handle_DestroyNotify(self, event) -> None:  # noqa: N802
+    def handle_DestroyNotify(self, event) -> None:
         assert self.qtile is not None
 
         self.qtile.unmanage(event.window)
 
-    def handle_UnmapNotify(self, event) -> None:  # noqa: N802
+    def handle_UnmapNotify(self, event) -> None:
         assert self.qtile is not None
 
         if event.event != self._root.wid:
             self.qtile.unmap_window(event.window)
 
-    def handle_ScreenChangeNotify(self, event) -> None:  # noqa: N802
+    def handle_ScreenChangeNotify(self, event) -> None:
         hook.fire("screen_change", self.qtile, event)
 
     @property

@@ -430,7 +430,7 @@ class TreeTab(Layout):
         hook.subscribe.client_name_updated(self.draw_panel)
         hook.subscribe.focus_change(self.draw_panel)
 
-    def _handle_Expose(self, e):  # noqa: N802
+    def _handle_Expose(self, e):
         self.draw_panel()
 
     def draw_panel(self, *args):
@@ -440,7 +440,7 @@ class TreeTab(Layout):
         self._tree.draw(self, 0)
         self._drawer.draw(offsetx=0, width=self.panel_width)
 
-    def _handle_ButtonPress(self, event):  # noqa: N802
+    def _handle_ButtonPress(self, event):
         node = self._tree.button_press(event.event_x, event.event_y)
         if node:
             self.group.focus(node.window, False)
