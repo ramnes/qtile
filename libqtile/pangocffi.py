@@ -45,8 +45,6 @@
 # [1]: https://groups.google.com/forum/#!topic/python-cffi/SPND0rRmazA
 #
 # This is not intended to be a complete cffi-based pango binding.
-
-
 try:
     from libqtile._ffi_pango import ffi
 except ImportError:

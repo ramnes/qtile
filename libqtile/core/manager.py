@@ -37,7 +37,7 @@ import xcffib.xinerama
 import xcffib.xproto
 
 import libqtile
-from libqtile import command_interface, hook, utils, window
+from libqtile import command_interface, confreader, hook, utils, window
 from libqtile.backend.x11 import xcbq
 from libqtile.command_client import InteractiveCommandClient
 from libqtile.command_interface import IPCCommandServer, QtileCommandInterface
@@ -95,7 +95,6 @@ class Qtile(CommandObject):
         self.mouse_position = (0, 0)
 
         self.core = kore
-        self.config = config
         libqtile.init(self)
 
         self.windows_map = {}
@@ -107,10 +106,22 @@ class Qtile(CommandObject):
 
         self.numlock_mask, self.valid_mask = self.core.masks
 
+        if isinstance(config, confreader.Config):
+            self.config = config
+        else:
+            try:
+                self.config = confreader.Config.from_file(config, kore=kore)
+            except Exception as e:
+                logger.exception('Error while reading config file (%s)', e)
+                self.config = confreader.Config()
+                from libqtile.widget import TextBox
+                widgets = self.config.screens[0].bottom.widgets
+                widgets.insert(0, TextBox('Config Err!'))
+
         self.core.wmname = getattr(self.config, "wmname", "qtile")
-        if config.main:
+        if self.config.main:
             warnings.warn("Defining a main function is deprecated, use libqtile.qtile", DeprecationWarning)
-            config.main(self)
+            self.config.main(self)
 
         self.dgroups = None
         if self.config.groups:
@@ -119,13 +130,13 @@ class Qtile(CommandObject):
                 key_binder = self.config.dgroups_key_binder
             self.dgroups = DGroups(self, self.config.groups, key_binder)
 
-        if hasattr(config, "widget_defaults") and config.widget_defaults:
-            _Widget.global_defaults = config.widget_defaults
+        if hasattr(self.config, "widget_defaults") and self.config.widget_defaults:
+            _Widget.global_defaults = self.config.widget_defaults
         else:
             _Widget.global_defaults = {}
 
-        if hasattr(config, "extension_defaults") and config.extension_defaults:
-            _Extension.global_defaults = config.extension_defaults
+        if hasattr(self.config, "extension_defaults") and self.config.extension_defaults:
+            _Extension.global_defaults = self.config.extension_defaults
         else:
             _Extension.global_defaults = {}
 

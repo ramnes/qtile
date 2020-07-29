@@ -33,7 +33,7 @@ from libqtile.command_object import CommandObject
 from libqtile.lazy import lazy
 
 
-class CallConfig:
+class CallConfig(libqtile.confreader.Config):
     keys = [
         libqtile.config.Key(
             ["control"], "j",
@@ -121,7 +121,7 @@ def test_command():
     assert not c.command("nonexistent")
 
 
-class ServerConfig:
+class ServerConfig(libqtile.confreader.Config):
     auto_fullscreen = True
     keys = []
     mouse = []

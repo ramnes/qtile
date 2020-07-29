@@ -26,6 +26,7 @@
 import pytest
 
 import libqtile.config
+import libqtile.confreader
 from libqtile import bar, layout, widget
 from libqtile.config import Screen
 
@@ -57,7 +58,7 @@ GRAPH_KW = dict(line_width=1,
 # also D goes down below the others
 
 
-class FakeScreenConfig:
+class FakeScreenConfig(libqtile.confreader.Config):
     auto_fullscreen = True
     groups = [
         libqtile.config.Group("a"),
